@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data and artifacts
+native-language-identification/data/
+!native-language-identification/data/metadata/
+native-language-identification/logs/
+native-language-identification/models/checkpoints/
+native-language-identification/resources/pretrained/
+
+# Checkpoints & events
+*.pt
+*.pth
+*.ckpt
+*.tfevents*
+
+# Build / dist
+build/
+dist/
+*.egg-info/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Testing
+.pytest_cache/
+.coverage
+coverage.xml

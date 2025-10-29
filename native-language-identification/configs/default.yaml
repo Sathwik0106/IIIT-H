@@ -1,0 +1,179 @@
+# Default Configuration for Native Language Identification
+
+# Project Settings
+project_name: "Native Language Identification"
+experiment_name: "baseline_experiment"
+seed: 42
+
+# Data Settings
+data:
+  dataset_name: "DarshanaS/IndicAccentDb"
+  cache_dir: "./data/raw"
+  processed_dir: "./data/processed"
+  metadata_dir: "./data/metadata"
+  
+  # Native languages to classify
+  languages:
+    - Hindi
+    - Tamil
+    - Telugu
+    - Malayalam
+    - Kannada
+    - Bengali
+    - Gujarati
+    - Marathi
+  
+  # Data splits
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  
+  # Age group settings
+  age_groups:
+    adult: "adult"
+    child: "child"
+  
+  # Speech level settings
+  speech_levels:
+    - word
+    - sentence
+  
+  # Audio preprocessing
+  sample_rate: 16000
+  max_duration: 10  # seconds
+  min_duration: 0.5  # seconds
+
+# Feature Extraction Settings
+features:
+  # MFCC settings
+  mfcc:
+    n_mfcc: 13
+    n_fft: 2048
+    hop_length: 512
+    n_mels: 128
+    fmin: 0
+    fmax: 8000
+    use_deltas: true
+    use_delta_deltas: true
+  
+  # HuBERT settings
+  hubert:
+    model_name: "facebook/hubert-base-ls960"
+    extract_layers: [1, 3, 6, 9, 12]  # Layer-wise analysis
+    pooling: "mean"  # mean, max, or attention
+    normalize: true
+
+# Model Architecture Settings
+model:
+  architecture: "cnn"  # Options: cnn, bilstm, transformer
+  
+  # CNN settings
+  cnn:
+    conv_layers:
+      - filters: 64
+        kernel_size: 3
+        activation: "relu"
+        pool_size: 2
+      - filters: 128
+        kernel_size: 3
+        activation: "relu"
+        pool_size: 2
+      - filters: 256
+        kernel_size: 3
+        activation: "relu"
+        pool_size: 2
+    dense_layers:
+      - units: 256
+        dropout: 0.5
+      - units: 128
+        dropout: 0.3
+  
+  # BiLSTM settings
+  bilstm:
+    lstm_units: [128, 64]
+    dropout: 0.3
+    recurrent_dropout: 0.2
+    dense_units: 128
+  
+  # Transformer settings
+  transformer:
+    num_heads: 4
+    ff_dim: 256
+    num_layers: 2
+    dropout: 0.1
+    dense_units: 128
+
+# Training Settings
+training:
+  batch_size: 32
+  epochs: 100
+  learning_rate: 0.001
+  optimizer: "adam"  # adam, sgd, adamw
+  
+  # Learning rate schedule
+  lr_schedule:
+    type: "reduce_on_plateau"  # step, exponential, reduce_on_plateau
+    patience: 5
+    factor: 0.5
+    min_lr: 0.00001
+  
+  # Early stopping
+  early_stopping:
+    patience: 15
+    monitor: "val_loss"
+    mode: "min"
+  
+  # Model checkpoint
+  checkpoint:
+    save_best_only: true
+    monitor: "val_accuracy"
+    mode: "max"
+    save_dir: "./models/checkpoints"
+
+# Evaluation Settings
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score
+    - confusion_matrix
+  
+  # Cross-validation
+  cross_validation:
+    enabled: false
+    n_folds: 5
+  
+  # Age generalization test
+  age_generalization:
+    train_on: "adult"
+    test_on: "child"
+
+# Application Settings
+application:
+  cuisine_mapping:
+    Hindi: ["Butter Chicken", "Chole Bhature", "Paneer Tikka", "Dal Makhani"]
+    Tamil: ["Dosa", "Idli", "Sambar", "Pongal", "Chettinad Chicken"]
+    Telugu: ["Hyderabadi Biryani", "Pesarattu", "Gongura Pachadi", "Pulihora"]
+    Malayalam: ["Appam", "Puttu", "Avial", "Fish Moilee", "Karimeen Pollichathu"]
+    Kannada: ["Bisi Bele Bath", "Ragi Mudde", "Mysore Pak", "Masala Dosa"]
+    Bengali: ["Mishti Doi", "Rasgulla", "Fish Curry", "Shorshe Ilish"]
+    Gujarati: ["Dhokla", "Khandvi", "Thepla", "Undhiyu"]
+    Marathi: ["Vada Pav", "Pav Bhaji", "Misal Pav", "Puran Poli"]
+  
+  confidence_threshold: 0.6
+  top_k_recommendations: 3
+
+# Logging Settings
+logging:
+  level: "INFO"
+  log_dir: "./logs"
+  tensorboard_dir: "./logs/tensorboard"
+  save_predictions: true
+
+# Hardware Settings
+hardware:
+  device: "cuda"  # cuda, cpu, mps
+  num_workers: 4
+  pin_memory: true
+  mixed_precision: true

@@ -1,0 +1,81 @@
+# MFCC Baseline Configuration
+
+experiment_name: "mfcc_baseline"
+
+# Feature Extraction - MFCC only
+features:
+  use_mfcc: true
+  use_hubert: false
+  
+  mfcc:
+    n_mfcc: 20  # Increased for better representation
+    n_fft: 2048
+    hop_length: 512
+    n_mels: 128
+    fmin: 0
+    fmax: 8000
+    use_deltas: true
+    use_delta_deltas: true
+    # Total features: 20 (MFCC) + 20 (deltas) + 20 (delta-deltas) = 60
+
+# Model Architecture - CNN for MFCC
+model:
+  architecture: "cnn"
+  
+  cnn:
+    conv_layers:
+      - filters: 32
+        kernel_size: [3, 3]
+        activation: "relu"
+        pool_size: [2, 2]
+      - filters: 64
+        kernel_size: [3, 3]
+        activation: "relu"
+        pool_size: [2, 2]
+      - filters: 128
+        kernel_size: [3, 3]
+        activation: "relu"
+        pool_size: [2, 2]
+    
+    batch_norm: true
+    
+    dense_layers:
+      - units: 256
+        dropout: 0.5
+        activation: "relu"
+      - units: 128
+        dropout: 0.3
+        activation: "relu"
+
+# Training Settings
+training:
+  batch_size: 64
+  epochs: 100
+  learning_rate: 0.001
+  optimizer: "adam"
+  
+  # Data augmentation for MFCC
+  augmentation:
+    time_stretch: true
+    pitch_shift: true
+    add_noise: true
+    time_mask: true
+    freq_mask: true
+  
+  lr_schedule:
+    type: "reduce_on_plateau"
+    patience: 7
+    factor: 0.5
+    min_lr: 0.00001
+  
+  early_stopping:
+    patience: 20
+    monitor: "val_loss"
+    mode: "min"
+
+# Hardware Settings
+hardware:
+  device: "cuda"
+  num_workers: 8
+  pin_memory: true
+  mixed_precision: false  # MFCC is lightweight
