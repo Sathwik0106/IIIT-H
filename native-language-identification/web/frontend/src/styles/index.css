@@ -20,8 +20,24 @@ html, body, #root {
 
 .btn-glow {
   @apply rounded-full px-6 py-3 font-semibold text-white transition-transform duration-200;
-  background: linear-gradient(90deg, #4f46e5, #a855f7);
+  background: linear-gradient(90deg, #22d3ee, #4f46e5, #a855f7);
 }
 .btn-glow:hover {
   transform: translateY(-1px) scale(1.02);
+}
+
+.panel {
+  @apply glass p-6 sm:p-8 shadow-aqua;
+}
+
+.dropzone {
+  @apply border-2 border-dashed border-white/20 rounded-xl p-8 text-center cursor-pointer hover:border-neonCyan transition;
+}
+
+.panel-title {
+  @apply text-2xl font-extrabold mb-4 tracking-wide;
+  background: linear-gradient(90deg, #22d3ee, #60a5fa, #a855f7);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }

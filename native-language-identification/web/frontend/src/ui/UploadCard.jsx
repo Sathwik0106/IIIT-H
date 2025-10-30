@@ -33,10 +33,10 @@ export default function UploadCard({ file, setFile, onPredict }){
     }
     const ws = WaveSurfer.create({
       container: containerRef.current,
-      waveColor: '#8b5cf6',
+      waveColor: '#22d3ee',
       progressColor: '#4f46e5',
       barWidth: 2,
-      height: 90,
+      height: 100,
       responsive: true,
       cursorColor: '#fff',
       normalize: true,
@@ -47,29 +47,34 @@ export default function UploadCard({ file, setFile, onPredict }){
   }, [audioUrl])
 
   return (
-    <section className="glass p-6 sm:p-8">
+    <section>
       <div
-        className="border-2 border-dashed border-white/20 rounded-xl p-8 text-center cursor-pointer hover:border-neonPurple transition"
+        className="dropzone"
         onDrop={onDrop}
         onDragOver={(e)=>e.preventDefault()}
         onClick={()=>document.getElementById('file-input').click()}
       >
         <input id="file-input" type="file" accept="audio/*" className="hidden" onChange={onChange} />
         <div className="flex flex-col items-center gap-3">
-          <div className="text-3xl text-neonPurple"><FaUpload /></div>
-          <p className="text-white/80">Drag and drop your audio file here, or click to browse</p>
+          <div className="text-3xl text-neonCyan"><FaUpload /></div>
+          <p className="text-white/80">Drag & drop your audio file here...</p>
           {file && <p className="text-sm text-white/60">Selected: {file.name}</p>}
         </div>
       </div>
 
       <div className="mt-6">
-        <div ref={containerRef} className="rounded-lg overflow-hidden bg-black/30" />
+        <div className="rounded-xl overflow-hidden bg-black/30 border border-white/10 p-2">
+          <div ref={containerRef} className="h-[100px]" />
+        </div>
       </div>
 
       <div className="mt-6 flex justify-center">
-        <button onClick={onPredict} disabled={!file} className="btn-glow glow disabled:opacity-50">
-          Predict
-        </button>
+        <div className="p-[2px] rounded-full bg-gradient-to-r from-neonCyan via-blue-500 to-neonPurple shadow-neon">
+          <button onClick={onPredict} disabled={!file}
+            className="rounded-full px-12 py-4 text-lg font-semibold text-white bg-[#0f0f1a]/80 hover:scale-[1.02] transition disabled:opacity-50">
+            Predict
+          </button>
+        </div>
       </div>
     </section>
   )
