@@ -16,6 +16,8 @@ env/
 # Data and artifacts
 native-language-identification/data/
 !native-language-identification/data/metadata/
+!native-language-identification/data/uploads/
+!native-language-identification/data/uploads/**
 native-language-identification/logs/
 native-language-identification/models/checkpoints/
 native-language-identification/resources/pretrained/
@@ -30,6 +32,11 @@ native-language-identification/resources/pretrained/
 build/
 dist/
 *.egg-info/
+
+# Outputs (track predictions; ignore other large outputs by default)
+native-language-identification/outputs/
+!native-language-identification/outputs/predictions/
+!native-language-identification/outputs/predictions/**
 
 # OS / editor
 .DS_Store
