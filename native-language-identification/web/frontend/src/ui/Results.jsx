@@ -30,7 +30,10 @@ export default function Results({ data }){
         className="glass p-6"
       >
         <h3 className="text-lg font-bold mb-2">Detected Language</h3>
-        <p className="text-3xl font-extrabold">{detected_language}</p>
+        <div className="flex items-center gap-3">
+          <div className="text-3xl">🇮🇳</div>
+          <p className="text-3xl font-extrabold">{detected_language}</p>
+        </div>
         <p className="text-white/70">Confidence: {(confidence*100).toFixed(2)}%</p>
       </motion.div>
 
