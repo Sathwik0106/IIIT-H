@@ -1,5 +1,2 @@
 numpy
 pandas
-torch
-transformers
-safetensors

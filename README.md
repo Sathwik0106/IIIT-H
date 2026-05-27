@@ -127,9 +127,16 @@ Install dependencies:
 pip install -r requirements.txt
 ```
 
-The live text predictor can use the pretrained Hugging Face model
+For optional local pretrained text-emotion inference, install:
+
+```bash
+pip install -r requirements-optional.txt
+```
+
+The optional live text predictor uses the pretrained Hugging Face model
 `j-hartmann/emotion-english-distilroberta-base`. The first text prediction may
-download model weights if they are not already cached.
+download model weights if they are not already cached. The Vercel deployment
+uses the lightweight project dependencies for reliable deployment.
 
 ## Dataset Setup
 
