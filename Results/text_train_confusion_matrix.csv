@@ -1,0 +1,8 @@
+actual,angry,disgust,fear,happy,neutral,pleasant_surprise,sad
+angry,46,26,50,38,70,43,47
+disgust,38,32,47,47,68,39,49
+fear,36,22,66,43,68,40,45
+happy,36,27,50,52,67,40,48
+neutral,34,22,50,36,90,41,47
+pleasant_surprise,31,23,51,44,66,54,51
+sad,33,24,48,39,72,44,60

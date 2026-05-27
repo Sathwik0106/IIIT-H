@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Speech Analytics Emotion Predictor</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <section class="hero">
+        <nav class="top-nav" aria-label="Application header">
+          <a class="brand" href="/" aria-label="Speech Analytics home">
+            <span class="brand-mark">SA</span>
+            <span>
+              <strong>Speech Analytics</strong>
+              <small>Emotion Predictor</small>
+            </span>
+          </a>
+          <div class="backend-pill" id="backendStatus">
+            <span class="status-dot pending"></span>
+            Checking models
+          </div>
+        </nav>
+
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Multimodal emotion recognition</span>
+            <h1>Predict emotion from speech, text, or both.</h1>
+            <div class="hero-badges" aria-label="Available model variants">
+              <span>Speech</span>
+              <span>Text</span>
+              <span>Fusion</span>
+            </div>
+          </div>
+
+          <section class="predict-card" aria-labelledby="predictTitle">
+            <div class="card-heading">
+              <div>
+                <span class="section-kicker">Live prediction</span>
+                <h2 id="predictTitle">Choose a model</h2>
+              </div>
+              <span class="loading-pill hidden" id="loadingPill">Processing</span>
+            </div>
+
+            <form id="predictionForm" novalidate>
+              <div class="mode-selector" role="group" aria-label="Model variant">
+                <input type="radio" name="mode" id="modeSpeech" value="speech" checked />
+                <label for="modeSpeech">
+                  <strong>Speech</strong>
+                  <span>Audio only</span>
+                </label>
+
+                <input type="radio" name="mode" id="modeText" value="text" />
+                <label for="modeText">
+                  <strong>Text</strong>
+                  <span>Transcript only</span>
+                </label>
+
+                <input type="radio" name="mode" id="modeFusion" value="fusion" />
+                <label for="modeFusion">
+                  <strong>Fusion</strong>
+                  <span>Audio + text</span>
+                </label>
+              </div>
+
+              <div class="mode-help" id="modeHelp">
+                Speech mode uses only the uploaded audio file.
+              </div>
+
+              <div class="input-section" id="audioSection">
+                <label class="field-label" for="audioInput">Audio sample</label>
+                <div class="upload-zone" id="uploadZone">
+                  <input id="audioInput" name="audio" type="file" accept=".wav,.aiff,.aif,audio/*" />
+                  <div class="upload-icon" aria-hidden="true">↑</div>
+                  <div class="upload-copy">
+                    <strong id="fileName">Choose or drop a WAV/AIFF file</strong>
+                    <span>Required for speech and fusion predictions.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-section hidden" id="textSection">
+                <label class="field-label" for="textInput">Transcript text</label>
+                <input id="textInput" name="text" type="text" placeholder="Example: base" autocomplete="off" />
+              </div>
+
+              <div class="form-actions">
+                <button class="primary-button" type="submit">
+                  <span>Predict Emotion</span>
+                </button>
+                <button class="ghost-button" id="resetButton" type="button">Reset</button>
+              </div>
+              <p class="form-error" id="formError" role="alert"></p>
+            </form>
+          </section>
+        </div>
+      </section>
+
+      <section class="results-section" aria-labelledby="resultsTitle">
+        <div class="results-header">
+          <div>
+            <span class="section-kicker">Output</span>
+            <h2 id="resultsTitle">Prediction result</h2>
+          </div>
+          <p id="resultHint">Run a prediction to see the detected emotion.</p>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <div class="pulse-orb"></div>
+          <strong>Ready when you are</strong>
+          <span>Pick Speech, Text, or Fusion and submit the required input.</span>
+        </div>
+        <div class="result-grid" id="resultGrid"></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

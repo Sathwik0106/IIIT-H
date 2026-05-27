@@ -1,0 +1,7 @@
+model_variant,split,accuracy,samples
+speech_only,train,1.0,2240
+speech_only,test,0.9732142857142856,560
+text_only,train,0.1785714285714285,2240
+text_only,test,0.0,560
+fusion,train,1.0,2240
+fusion,test,0.9714285714285714,560

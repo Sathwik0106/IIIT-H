@@ -1,0 +1,8 @@
+actual,angry,disgust,fear,happy,neutral,pleasant_surprise,sad
+angry,80,0,0,0,0,0,0
+disgust,0,79,0,0,0,1,0
+fear,0,0,80,0,0,0,0
+happy,0,0,0,77,0,3,0
+neutral,0,0,0,0,80,0,0
+pleasant_surprise,0,0,0,7,0,73,0
+sad,0,0,0,0,4,0,76
