@@ -1,2 +1,11 @@
+[project]
+name = "multimodal-emotion-recognition"
+version = "1.0.0"
+requires-python = ">=3.12"
+dependencies = [
+  "numpy",
+  "pandas"
+]
+
 [tool.vercel]
 entrypoint = "api.index:handler"
