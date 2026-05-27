@@ -4,3 +4,5 @@ server.*.log
 uploads/*
 !uploads/.gitkeep
 .env
+
+.vercel

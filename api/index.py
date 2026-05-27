@@ -4,10 +4,11 @@ import json
 import sys
 from http.server import BaseHTTPRequestHandler
 from pathlib import Path
+from urllib.parse import urlparse
 from uuid import uuid4
 
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -18,7 +19,32 @@ recognizer = EmotionRecognizer(PROJECT_ROOT)
 
 
 class handler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        path = urlparse(self.path).path
+        if path == "/health":
+            return self.send_json(
+                {
+                    "status": "ok",
+                    "models": {
+                        "speech": (
+                            PROJECT_ROOT / "models" / "speech_pipeline" / "speech_model.npz"
+                        ).exists(),
+                        "text": (
+                            PROJECT_ROOT / "models" / "text_pipeline" / "text_model.json"
+                        ).exists(),
+                        "fusion": (
+                            PROJECT_ROOT / "models" / "fusion_pipeline" / "fusion_model.npz"
+                        ).exists(),
+                    },
+                }
+            )
+        return self.send_json({"error": "Not found"}, status=404)
+
     def do_POST(self):
+        path = urlparse(self.path).path
+        if path != "/api/predict/upload":
+            return self.send_json({"error": "Not found"}, status=404)
+
         try:
             fields, files = parse_request(self)
             mode = fields.get("mode", "text")
@@ -36,15 +62,15 @@ class handler(BaseHTTPRequestHandler):
             else:
                 raise ValueError("Mode must be speech, text, or fusion.")
 
-            self.send_response(200)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps(result).encode("utf-8"))
+            return self.send_json(result)
         except Exception as exc:
-            self.send_response(400)
-            self.send_header("Content-Type", "application/json")
-            self.end_headers()
-            self.wfile.write(json.dumps({"error": str(exc)}).encode("utf-8"))
+            return self.send_json({"error": str(exc)}, status=400)
+
+    def send_json(self, payload, status=200):
+        self.send_response(status)
+        self.send_header("Content-Type", "application/json")
+        self.end_headers()
+        self.wfile.write(json.dumps(payload).encode("utf-8"))
 
 
 def parse_request(request: BaseHTTPRequestHandler):

@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "routes": [
-    { "src": "/health", "dest": "/api/health.py" },
-    { "src": "/api/predict/upload", "dest": "/api/predict/upload.py" },
+    { "src": "/health", "dest": "/api/index.py" },
+    { "src": "/api/predict/upload", "dest": "/api/index.py" },
     { "src": "/", "dest": "/public/index.html" },
     { "src": "/(.*)", "dest": "/public/$1" }
   ]
