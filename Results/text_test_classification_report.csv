@@ -1,8 +1,0 @@
-emotion,precision,recall,f1_score,support
-angry,0.0,0.0,0.0,80
-disgust,0.0,0.0,0.0,80
-fear,0.0,0.0,0.0,80
-happy,0.0,0.0,0.0,80
-neutral,0.0,0.0,0.0,80
-pleasant_surprise,0.0,0.0,0.0,80
-sad,0.0,0.0,0.0,80

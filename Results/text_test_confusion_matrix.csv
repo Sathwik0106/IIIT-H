@@ -1,8 +1,0 @@
-actual,angry,disgust,fear,happy,neutral,pleasant_surprise,sad
-angry,0,6,16,14,20,11,13
-disgust,8,0,19,5,22,15,11
-fear,10,10,0,9,22,14,15
-happy,10,5,16,0,23,14,12
-neutral,12,10,16,16,0,13,13
-pleasant_surprise,15,9,15,8,24,0,9
-sad,13,8,18,13,18,10,0
